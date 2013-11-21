@@ -28,7 +28,7 @@ def coco3(aaa)
 	var1 = news_links.css("div[class='itemtext']")
 	var2 = news_links.css("div[class='itemsubtext']")
 	resultado = [10]
-	while(cont<10)
+	while(cont<3)
 	
 		news_links2 = news_links.css('a')[cont]['href'] #link del artista
 		
@@ -55,14 +55,6 @@ def coco3(aaa)
 	end
 
 
-#def xxx()
-#wxe = Nokogiri::HTML(open("http://anarchy.bandcamp.com/album/dgka-dirty-ghetto-king-anarchy"))
-#news_links = wxe.css('li[class="buyItem"]') #busca los resultados
-#puts news_links
-#if(news_links=="")
-#puts "jJjJ"
-#end
-#end
 
 def gratuita(url)
     wxe = Nokogiri::HTML(open(url))
@@ -93,13 +85,11 @@ def gratuitaaux(news_links)
     if(var4.length>0)
         res = res + var1.css('span')[cont].text + var4.css('span')[cont].text + "\n" + "\t"
         while(x>cont+1)
-            #res = res + var1.css('span')[cont].text + var2.css('span')[cont].text + var3.css('span')[cont].text
             res = res + var1.css('span')[cont+1].text + var2.css('span')[cont].text + var3.css('span')[cont].text + "\n" + "\t"
             cont = cont + 1
         end
         else
         while(x>cont)
-            #res = res + var1.css('span')[cont].text + var2.css('span')[cont].text + var3.css('span')[cont].text
             res = res + var1.css('span')[cont].text + var2.css('span')[cont].text + var3.css('span')[cont].text + "\n" + "\t"
             cont = cont + 1
         end
@@ -115,19 +105,29 @@ get '/' do
 end
 
 post "/buscando" do
+	erb :fail
+end
+
+post "/buscando3" do
     txt=params[:elemento]
     coco3(txt)
     "Busqueda satisfactoria para:#{params[:elemento]}"
 
-
 end
 
+post '/breakfast' do
+	
+	
+    breakfast = {}
+    
+    breakfast[:x] = 1
+    breakfast[:artista] = "Mike Rudelbar"
+    breakfast[:album] = "Stars giving milk"
+    breakfast[:direccion] = "http://bandcamp.com/tag/rock"
+    breakfast[:precio] = "10 US"
 
-
-#Corrida de busqueda
-#coco3("rock")
-
-
+    erb :breakfast, :locals => {:breakfast => breakfast}
+end
 
 #Diseño de la pagina
 __END__
